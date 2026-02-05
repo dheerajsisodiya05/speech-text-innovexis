@@ -26,7 +26,7 @@ const transcribeAudio = async (filePath) => {
     }
   );
 
-  // ✅ STABLE RESPONSE PATH
+  // STABLE RESPONSE PATH
   return (
     response.data.results.channels[0].alternatives[0].transcript || ""
   );
