@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { uploadAudio } from "../services/transcriptionService";
-import { supabase } from "../services/supabaseClient";
+import { uploadAudio } from "../services/TranscriptionService";
+import { supabase } from "../services/supabaseDClient";
 
 function AudioRecorder() {
   const recorderRef = useRef(null);
