@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchHistory } from "../services/transcriptionService";
+import { fetchHistory } from "../services/TranscriptionService";
 import { supabase } from "../services/SupabaseClient";
 
 function TranscriptionHistory() {
