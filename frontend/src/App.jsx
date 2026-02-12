@@ -1,6 +1,6 @@
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { supabase } from "./services/supabaseClient";
+import { supabase } from "./services/supabaseDClient";
 
 import Home from "./pages/Home";
 import History from "./pages/History";
