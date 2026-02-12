@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchHistory } from "../services//TranscriptionService";
-import { supabase } from "../services/SupabaseClient";
+import { supabase } from "../services/supabaseDClient";
 
 function TranscriptionHistory() {
   const [data, setData] = useState([]);
