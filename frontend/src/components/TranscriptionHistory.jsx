@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchHistory } from "../services/transcriptionService";
-import { supabase } from "../services/supabaseClient";
+import { supabase } from "../services/SupabaseClient";
 
 function TranscriptionHistory() {
   const [data, setData] = useState([]);
@@ -31,7 +31,7 @@ function TranscriptionHistory() {
     load();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Loading....</div>;
 
   return (
     <div className="bg-white p-6 rounded shadow space-y-4">

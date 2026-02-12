@@ -17,16 +17,13 @@ export const fetchHistory = async (userId) => {
   const res = await axios.get(`${API}?userId=${userId}`);
   return res.data.data;
 };
-```
 
----
+// ## 🔧 Add Environment Variable on Vercel
 
-## 🔧 Add Environment Variable on Vercel
-
-1. Go to your **Vercel dashboard**
-2. Click on your **frontend project**
-3. Go to **Settings** → **Environment Variables**
-4. Add this:
-```
-Name:  VITE_API_URL
-Value: https://speech-text-innovexis.onrender.com
+// 1. Go to your **Vercel dashboard**
+// 2. Click on your **frontend project**
+// 3. Go to **Settings** → **Environment Variables**
+// 4. Add this:
+// ```
+// Name:  VITE_API_URL
+// Value: https://speech-text-innovexis.onrender.com
