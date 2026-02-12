@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../services/supabaseClient";
+import { supabase } from "../services/supabaseDClient";
 import AudioRecorder from "../components/AudioRecorder";
 import TranscriptionHistory from "../components/TranscriptionHistory";
 
