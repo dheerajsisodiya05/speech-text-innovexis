@@ -2,11 +2,23 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const routes = require('./routes/transcriptionRoutes');
+const errorHandler = require('./middlewares/errorHandler');
 
 console.log('Starting backend server file...');
 
 const app = express();
+
+// Ensure uploads directory exists
+const fs = require('fs');
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log('[INIT] Created uploads directory');
+} else {
+  console.log('[INIT] Uploads directory already exists');
+}
 
 // CORS - allow your frontend
 const corsOptions = {
@@ -32,6 +44,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/transcriptions', routes);
+
+// Error handler middleware (must be last)
+app.use(errorHandler);
 
 // Use environment PORT or default to 5000 for local
 const PORT = process.env.PORT || 5000;

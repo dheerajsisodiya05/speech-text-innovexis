@@ -6,7 +6,7 @@ function HistoryPage() {
       <h1 className="text-2xl font-bold mb-4">
         Transcription History
       </h1>
-
+      
       <TranscriptionHistory />
     </div>
   );

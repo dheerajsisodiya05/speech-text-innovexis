@@ -9,13 +9,22 @@ const asyncHandler = require("../utils/asyncHandler");
  * @access Public
  */
 const uploadAndTranscribe = asyncHandler(async (req, res) => {
+  console.log('[Controller] uploadAndTranscribe called');
+  console.log('[Controller] Request file:', req.file);
+  
   if (!req.file) {
+    console.log('[Controller] No file in request - returning 400');
     res.status(400);
     throw new Error("No audio file uploaded");
   }
 
+  console.log('[Controller] File received:', req.file.filename, req.file.mimetype);
+  console.log('[Controller] File path:', req.file.path);
+
   // Convert speech to text
+  console.log('[Controller] Calling transcribeAudio...');
   const transcriptionText = await transcribeAudio(req.file.path);
+  console.log('[Controller] Transcription complete, text length:', transcriptionText.length);
 
   // Save transcription in MongoDB (include user if provided)
   const savedTranscription = await Transcription.create({

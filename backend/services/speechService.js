@@ -1,35 +1,38 @@
 const fs = require("fs");
-const path = require("path");
 const axios = require("axios");
 
 const transcribeAudio = async (filePath) => {
-  const audioBuffer = fs.readFileSync(filePath);
-  const ext = path.extname(filePath);
+  if (!process.env.DEEPGRAM_API_KEY) {
+    throw new Error("Deepgram API key missing");
+  }
 
-  let mimetype = "audio/wav";
-  if (ext === ".mp3") mimetype = "audio/mpeg";
-  if (ext === ".webm") mimetype = "audio/webm";
+  try {
+    const response = await axios.post(
+      "https://api.deepgram.com/v1/listen",
+      fs.createReadStream(filePath),
+      {
+        headers: {
+          Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
+          "Content-Type": "application/octet-stream",
+        },
+        params: {
+          punctuate: true,
+          language: "en",
+          model: "nova-2",
+        },
+        maxBodyLength: Infinity,
+        maxContentLength: Infinity,
+        timeout: 120000, // 2 minutes
+      }
+    );
 
-  const response = await axios.post(
-    "https://api.deepgram.com/v1/listen",
-    audioBuffer,
-    {
-      headers: {
-        Authorization: `Token ${process.env.DEEPGRAM_API_KEY}`,
-        "Content-Type": mimetype,
-      },
-      params: {
-        punctuate: true,
-        language: "en",
-        model: "nova-2",
-      },
-    }
-  );
-
-  // STABLE RESPONSE PATH
-  return (
-    response.data.results.channels[0].alternatives[0].transcript || ""
-  );
+    return (
+      response.data?.results?.channels?.[0]?.alternatives?.[0]?.transcript || ""
+    );
+  } catch (error) {
+    console.error("Deepgram Error:", error.response?.data || error.message);
+    throw error;
+  }
 };
 
 module.exports = { transcribeAudio };
